@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interatividade com WebGL</title>
+</head>
+<body>
+<canvas id="webglCanvas" width="800" height="600"></canvas>
+<script>
+const canvas = document.getElementById('webglCanvas');
+const gl = canvas.getContext('webgl');
+
+// Vertex shader
+const vertexShaderSrc = `
+    attribute vec3 aPos;
+    uniform vec2 uOffset;
+    void main() {
+        gl_Position = vec4(aPos + vec3(uOffset, 0.0), 1.0);
+    }
+`;
+
+// Fragment shader
+const fragmentShaderSrc = `
+    precision mediump float;
+    uniform vec4 uColor;
+    void main() {
+        gl_FragColor = uColor;
+    }
+`;
+
+// Compile shaders
+function createShader(gl, type, source) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    return shader;
+}
+
+const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSrc);
+const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSrc);
+
+const program = gl.createProgram();
+gl.attachShader(program, vertexShader);
+gl.attachShader(program, fragmentShader);
+gl.linkProgram(program);
+gl.useProgram(program);
+
+// Define a triângulo
+const vertices = new Float32Array([
+     0.0,  0.5, 0.0,
+    -0.5, -0.5, 0.0,
+     0.5, -0.5, 0.0
+]);
+
+const buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+const aPosLoc = gl.getAttribLocation(program, 'aPos');
+gl.vertexAttribPointer(aPosLoc, 3, gl.FLOAT, false, 0, 0);
+gl.enableVertexAttribArray(aPosLoc);
+
+// Uniforms
+const uOffsetLoc = gl.getUniformLocation(program, 'uOffset');
+const uColorLoc = gl.getUniformLocation(program, 'uColor');
+
+let offsetX = 0.0, offsetY = 0.0;
+let isDragging = false;
+
+// Interatividade
+canvas.addEventListener('mousedown', () => { isDragging = true; });
+canvas.addEventListener('mouseup', () => { isDragging = false; });
+canvas.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+        const rect = canvas.getBoundingClientRect();
+        offsetX = (e.clientX - rect.width / 2) / (rect.width / 2);
+        offsetY = -(e.clientY - rect.height / 2) / (rect.height / 2);
+    }
+});
+canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = (e.clientX - rect.width / 2) / (rect.width / 2);
+    const mouseY = -(e.clientY - rect.height / 2) / (rect.height / 2);
+    const distance = Math.sqrt((mouseX - offsetX) ** 2 + (mouseY - offsetY) ** 2);
+    if (distance < 0.2) {
+        gl.uniform4f(uColorLoc, 1.0, 0.0, 0.0, 1.0); // Cor vermelha quando o mouse está sobre o triângulo
+    } else {
+        gl.uniform4f(uColorLoc, 0.0, 0.8, 0.8, 1.0); // Cor padrão
+    }
+});
+
+// Renderização
+function draw() {
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform2f(uOffsetLoc, offsetX, offsetY);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    requestAnimationFrame(draw);
+}
+
+// Configuração inicial
+gl.uniform4f(uColorLoc, 0.0, 0.8, 0.8, 1.0); // Cor inicial
+draw();
+</script>
+</body>
+</html>

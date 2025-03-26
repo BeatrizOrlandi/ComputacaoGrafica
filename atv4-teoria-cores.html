@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade 4 - Teoria das Cores e Modelos de Cor</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f8f8f8;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h2 { margin-top: 40px; }
+    section {
+      margin-bottom: 40px;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ddd;
+      box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    }
+    canvas {
+      border: 1px solid #ccc;
+      display: block;
+      margin-bottom: 15px;
+    }
+    label { display: inline-block; width: 30px; }
+    input[type="number"] {
+      width: 60px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 5px 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 10px;
+      padding: 5px;
+      background: #eee;
+    }
+  </style>
+</head>
+<body>
+  <h1>Atividade 4: Teoria das Cores e Modelos de Cor</h1>
+
+  <!-- Exercício 1: Gradiente RGB -->
+  <section>
+    <h2>Exercício 1: Gradiente RGB</h2>
+    <p>O canvas a seguir apresenta um gradiente onde o canal R varia de 0 a 255 enquanto G e B permanecem constantes (G=100, B=150):</p>
+    <canvas id="gradientCanvas" width="600" height="50"></canvas>
+  </section>
+
+  <!-- Exercício 2: Conversão RGB para HSV -->
+  <section>
+    <h2>Exercício 2: Converter RGB para HSV</h2>
+    <p>Insira valores para R, G e B (0-255) e clique em "Converter":</p>
+    <div>
+      <label for="r">R:</label>
+      <input type="number" id="r" value="255" min="0" max="255">
+      <label for="g">G:</label>
+      <input type="number" id="g" value="128" min="0" max="255">
+      <label for="b">B:</label>
+      <input type="number" id="b" value="64" min="0" max="255">
+      <button onclick="convertRGBtoHSV()">Converter</button>
+    </div>
+    <div id="hsvResult" class="result"></div>
+  </section>
+
+  <!-- Exercício 3: Conversão RGB para CMYK -->
+  <section>
+    <h2>Exercício 3: Converter RGB para CMYK</h2>
+    <p>Aplicando a cor R = 255, G = 128, B = 64, a conversão para CMYK é:</p>
+    <div id="cmykResult" class="result"></div>
+  </section>
+
+  <script>
+    /* Exercício 1: Gradiente RGB */
+    (function() {
+      const canvas = document.getElementById("gradientCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Criar um gradiente linear horizontal
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+      // Para criar uma transição suave, vamos adicionar 256 pontos de parada
+      for (let r = 0; r <= 255; r++) {
+        // Normalizando o valor de r para o intervalo [0, 1]
+        const stop = r / 255;
+        // Canais G e B permanecem constantes (ex.: G=100, B=150)
+        const color = `rgb(${r}, 100, 150)`;
+        gradient.addColorStop(stop, color);
+      }
+      // Preencher o canvas com o gradiente
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    })();
+
+    /* Exercício 2: Conversão RGB para HSV */
+    function convertRGBtoHSV() {
+      // Obter valores de entrada
+      const r = parseInt(document.getElementById("r").value);
+      const g = parseInt(document.getElementById("g").value);
+      const b = parseInt(document.getElementById("b").value);
+      
+      // Converter os valores para a faixa [0, 1]
+      const rNorm = r / 255;
+      const gNorm = g / 255;
+      const bNorm = b / 255;
+      
+      const max = Math.max(rNorm, gNorm, bNorm);
+      const min = Math.min(rNorm, gNorm, bNorm);
+      const delta = max - min;
+      
+      let h = 0, s = 0, v = max;
+      
+      // Calcular H (matiz)
+      if (delta !== 0) {
+        if (max === rNorm) {
+          h = 60 * (((gNorm - bNorm) / delta) % 6);
+        } else if (max === gNorm) {
+          h = 60 * (((bNorm - rNorm) / delta) + 2);
+        } else if (max === bNorm) {
+          h = 60 * (((rNorm - gNorm) / delta) + 4);
+        }
+      }
+      if (h < 0) h += 360;
+      
+      // Calcular S (saturação)
+      s = max === 0 ? 0 : (delta / max);
+      
+      // Exibir resultado
+      const hsvResult = document.getElementById("hsvResult");
+      hsvResult.innerHTML = `<strong>HSV:</strong> H = ${h.toFixed(1)}°, S = ${(s * 100).toFixed(1)}%, V = ${(v * 100).toFixed(1)}%`;
+    }
+
+    /* Exercício 3: Conversão RGB para CMYK (Modelo Subtrativo) */
+    (function() {
+      // Cor fixa: R=255, G=128, B=64
+      const R = 255, G = 128, B = 64;
+      // Converter para a faixa [0, 1]
+      const r = R / 255, g = G / 255, b = B / 255;
+      
+      // Calcular o K (preto)
+      const k = 1 - Math.max(r, g, b);
+      
+      // Evitar divisão por zero
+      let c = 0, m = 0, y = 0;
+      if (k < 1) {
+        c = (1 - r - k) / (1 - k);
+        m = (1 - g - k) / (1 - k);
+        y = (1 - b - k) / (1 - k);
+      }
+      
+      // Converter para porcentagens
+      c = (c * 100).toFixed(1);
+      m = (m * 100).toFixed(1);
+      y = (y * 100).toFixed(1);
+      const kPercent = (k * 100).toFixed(1);
+      
+      const cmykResult = document.getElementById("cmykResult");
+      cmykResult.innerHTML = `<strong>CMYK:</strong> C = ${c}%, M = ${m}%, Y = ${y}%, K = ${kPercent}%`;
+    })();
+  </script>
+</body>
+</html>
