@@ -1,11 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebGL Example</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividades de Programação Gráfica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    #menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    #menu button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    #menu button:hover {
+      background: #45a049;
+    }
+    #displayContainer {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      max-width: 100%;
+      overflow: auto;
+      min-height: 600px;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 10px;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 14px;
+      padding: 10px;
+      background: #eee;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-<canvas id="webglCanvas" width="800" height="600"></canvas>
+  <h1>Atividades de Programação Gráfica</h1>
+  <div id="menu">
+    <button data-file="atv1-bibliotecas-graficas.html" data-type="html">atv1-bibliotecas-graficas.html</button>
+    <button data-file="atv2-grafica-interativa.html" data-type="html">atv2-grafica-interativa.html</button>
+    <button data-file="atv3-transformacoes-geometricas.html" data-type="html">atv3-transformacoes-geometricas.html</button>
+    <button data-file="atv4-teoria-cores.html" data-type="html">atv4-teoria-cores.html</button>
+    <button data-file="atv5-fundamentos-progGraf.html" data-type="html">atv5-fundamentos-progGraf.html</button>
+    <button data-file="labirinto.c" data-type="c">labirinto.c</button>
+    <button data-file="robot_animado.c" data-type="c">robot_animado.c</button>
+  </div>
+  <div id="displayContainer">
+    <p style="text-align:center; color: #777;">Selecione uma atividade acima para visualizar.</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const buttons = document.querySelectorAll("#menu button");
+      const container = document.getElementById("displayContainer");
+
+      buttons.forEach(button => {
+        button.addEventListener("click", function() {
+          const file = this.getAttribute("data-file");
+          const type = this.getAttribute("data-type");
+
+          // Limpa o container
+          container.innerHTML = "";
+
+          if (type === "html") {
+            // Para arquivos HTML, insere um iframe com o arquivo
+            const iframe = document.createElement("iframe");
+            iframe.src = file;
+            container.appendChild(iframe);
+          } else if (type === "c") {
+            // Para arquivos C, busca o conteúdo via fetch e exibe dentro de um <pre>
+            fetch(file)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error("Não foi possível carregar o arquivo " + file);
+                }
+                return response.text();
+              })
+              .then(data => {
+                const pre = document.createElement("pre");
+                pre.textContent = data;
+                container.appendChild(pre);
+              })
+              .catch(error => {
+                container.innerHTML = "<p style='color:red;'>Erro ao carregar o arquivo: " + error.message + "</p>";
+              });
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
