@@ -1,6 +1,6 @@
-# Programação Gráfica - Atividades Interativas
+# bcc327-comp-grafica - Atividades Interativas
 
-Bem-vindo(a) ao repositório das atividades de programação gráfica! Este projeto reúne diversos exercícios e projetos que exploram conceitos de gráficos interativos e animações 3D, utilizando tecnologias como WebGL, HTML5, CSS3, JavaScript e OpenGL/GLUT com C.
+Bem-vindo(a) ao repositório dos códigos das atividades de computação gráfica! Este projeto reúne os exercícios e projetos que exploram conceitos de gráficos interativos e animações 3D, utilizando tecnologias como WebGL, HTML5, CSS3, JavaScript e OpenGL/GLUT com C.
 
 ## Atividades Incluídas
 
@@ -29,7 +29,7 @@ Bem-vindo(a) ao repositório das atividades de programação gráfica! Este proj
 
 ### Versões Web
 As atividades em HTML (atv1 a atv5) podem ser visualizadas diretamente em navegadores modernos.  
-Você pode acessar a visualização online através do [GitHub Pages](LINK_PARA_A_PAGINA) 
+Você pode acessar a visualização online através do [GitHub Pages](https://beatrizorlandi.github.io/ComputacaoGrafica/) 
 
 ### Versões em C (OpenGL/GLUT)
 Para as atividades desenvolvidas em C, será necessário compilar os arquivos em um ambiente compatível. Seguem exemplos de comandos para compilação:
