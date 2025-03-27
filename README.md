@@ -1,6 +1,7 @@
 # bcc327-comp-grafica - Atividades Interativas 🎨💻
 
 [https://github.com/BeatrizOrlandi/ComputacaoGrafica](https://github.com/BeatrizOrlandi/ComputacaoGrafica)
+
 [Clique AQUI e visualize o projeto online no GitHub Pages](https://beatrizorlandi.github.io/ComputacaoGrafica/)
 
 **Caro Professor Rafael**, se você estiver lendo isso, gostaria de expressar minha gratidão pelas aulas, tanto de computação gráfica quanto de computação numérica! 🙏
