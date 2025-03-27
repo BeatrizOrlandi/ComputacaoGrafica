@@ -1,44 +1,49 @@
-# bcc327-comp-grafica - Atividades Interativas
+# bcc327-comp-grafica - Atividades Interativas 🎨💻
 
-https://beatrizorlandi.github.io/ComputacaoGrafica/
+[https://github.com/BeatrizOrlandi/ComputacaoGrafica](https://github.com/BeatrizOrlandi/ComputacaoGrafica)
+[Clique AQUI e visualize o projeto online no GitHub Pages](https://beatrizorlandi.github.io/ComputacaoGrafica/)
 
-Bem-vindo ao repositório dos códigos das atividades de computação gráfica! Este projeto reúne os exercícios e projetos que exploram conceitos de gráficos interativos e animações 3D, utilizando tecnologias como WebGL, HTML5, CSS3, JavaScript e OpenGL/GLUT com C.
+**Caro Professor Rafael**, se você estiver lendo isso, gostaria de expressar minha gratidão pelas aulas, tanto de computação gráfica quanto de computação numérica! 🙏
 
-Obs: os arquivos estão como HTML apenas para ficar fácil a vizualização, mas dento de cada arquivo possui os scrpts com as bibliotecas solicitadas pelo professor nas atividades.
+Bem-vindo ao repositório dos códigos das atividades de computação gráfica! Este projeto reúne diversos exercícios e projetos que exploram conceitos de gráficos interativos e animações 3D. Aqui, você encontrará aplicações incríveis desenvolvidas com tecnologias como **WebGL**, **HTML5**, **CSS3**, **JavaScript** e **OpenGL/GLUT** com C.
 
-Caro Professor Rafael, se você estiver lendo isso, gostaria de agradecer pelas aulas, tanto de computação gráfica como númerico!
+> **Nota:**  
+> Os arquivos foram disponibilizados no formato HTML para facilitar a visualização, mas dentro de cada arquivo estão os scripts com as bibliotecas solicitadas pelo professor nas atividades.
+
 
 ## Atividades Incluídas
 
 - **atv1-bibliotecas-graficas.html**  
-  Demonstração de aplicações gráficas utilizando diferentes bibliotecas e APIs.
+  Demonstração de aplicações gráficas utilizando diferentes bibliotecas e APIs. 🔧
 
 - **atv2-grafica-interativa.html**  
-  Projeto de gráficos interativos com manipulação em tempo real e eventos, utilizando WebGL.
+  Projeto de gráficos interativos com manipulação em tempo real e eventos, utilizando WebGL. ⚡
 
 - **atv3-transformacoes-geometricas.html**  
-  Implementação de transformações geométricas (2D e 3D) e composição de transformações com WebGL.
+  Implementação de transformações geométricas (2D e 3D) e composição de transformações com WebGL. 🔄
 
 - **atv4-teoria-cores.html**  
-  Exercícios sobre teoria das cores, incluindo gradientes RGB e conversões entre modelos de cor (RGB, HSV e CMYK).
+  Exercícios sobre teoria das cores, incluindo gradientes RGB e conversões entre modelos de cor (RGB, HSV e CMYK). 🌈
 
 - **atv5-fundamentos-progGraf.html**  
-  Fundamentos de programação gráfica: triângulo colorido com gradiente e movimentação de quadrado via teclado com WebGL.
+  Fundamentos de programação gráfica: triângulo colorido com gradiente e movimentação de quadrado via teclado com WebGL. 🎮
 
 - **labirinto.c**  
-  Projeto em C com OpenGL/GLUT que implementa um labirinto 3D simples. A câmera é controlada pelas teclas W, A, S, D (para movimento) e pelas setas (para rotação), com colisão básica para impedir a passagem pelas paredes.
+  Projeto em C com OpenGL/GLUT que implementa um labirinto 3D simples. A câmera é controlada pelas teclas **W, A, S, D** (para movimento) e pelas setas (para rotação), com colisão básica para impedir a passagem pelas paredes. 🕹️
 
 - **robot_animado.c**  
-  Projeto em C com OpenGL/GLUT que implementa um robô com braço animado, utilizando hierarquia de transformações (com `glPushMatrix()`/`glPopMatrix()`) para simular o movimento do corpo, braço e antebraço.
+  Projeto em C com OpenGL/GLUT que implementa um robô com braço animado, utilizando hierarquia de transformações (com `glPushMatrix()`/`glPopMatrix()`) para simular o movimento do corpo, braço e antebraço. 🤖
 
 ## Visualização e Execução
 
-### Versões Web
+### Versões Web (HTML)
+
 As atividades em HTML (atv1 a atv5) podem ser visualizadas diretamente em navegadores modernos.  
-Você pode acessar a visualização online através do [GitHub Pages](https://beatrizorlandi.github.io/ComputacaoGrafica/) 
+Acesse a visualização online através do [GitHub Pages](https://beatrizorlandi.github.io/ComputacaoGrafica/) 🌐
 
 ### Versões em C (OpenGL/GLUT)
-Para as atividades desenvolvidas em C, será necessário compilar os arquivos em um ambiente compatível. Seguem exemplos de comandos para compilação:
+
+Para as atividades desenvolvidas em C, é necessário compilar os arquivos em um ambiente compatível. Veja abaixo os comandos de compilação:
 
 ```bash
 # Compilando labirinto.c:
